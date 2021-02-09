@@ -45,7 +45,7 @@ const Data = () => {
   const getPosition =  async (position) =>{
     lat = position.coords.latitude;
     long = position.coords.longitude;
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=e267d37a3cd129d493e9cdb21ab453cc&units=metric`
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=3d200fec9ce268d89c8a350e4e868dd3&units=metric`
     const resp = await fetch(url);
     const info  = await resp.json();
       cityValue = info.name;
@@ -58,7 +58,6 @@ const Data = () => {
       sky = info.weather[0].description;
       icon = info.weather[0].icon;
       HandelrData();
-    console.log(info)
   }
 
   
