@@ -39,7 +39,7 @@ const Data = () => {
      navigator.geolocation.getCurrentPosition(getPosition)
         
     }else{
-      alert('Not Supported')
+      alert('Not Supported');
     }
   }
   const getPosition =  async (position) =>{
