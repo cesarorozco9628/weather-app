@@ -1,5 +1,5 @@
 import React,{useEffect, useState } from 'react'
-import { CardWeather,CardInput } from './CardWeather';
+import CardWeather from './CardWeather';
 
 let range = true;
 
@@ -75,27 +75,7 @@ useEffect(() => {
   const [isSky, setSky] = useState('***');
   const [isImg, setImg] = useState(null);
 
-    const getData = async (e) => {
-      e.preventDefault();
-      const {country, city} = e.target.elements
-      countryValue = country.value;
-      cityValue = city.value;
-
-      const API_URL = `http://api.openweathermap.org/data/2.5/weather?q=${countryValue},${cityValue}&appid=e267d37a3cd129d493e9cdb21ab453cc&units=metric`
-      const response = await fetch(API_URL);
-      const info = await response.json();
-      cityValue = info.name;
-      countryValue = info.sys.country;
-      temp = info.main.temp;
-      minTemp = info.main.temp_min;
-      maxTemp = info.main.temp_max;
-      speed = info.wind.speed;
-      clouds = info.clouds.all;
-      sky = info.weather[0].description;
-      icon = info.weather[0].icon;
-      HandelrData();
-      range = true;
-    }
+    
 
       const HandelrData = () => {
         setCountry(PrintData(countryValue, isCountry));
@@ -115,7 +95,6 @@ useEffect(() => {
 
   return (
     <div className = 'container'>
-        <CardInput country ='Country' city='City' getData = {getData} /> 
         <CardWeather sky={isSky} title='Weather' country = {isCountry} city= {isCity} temperature = {isTemp} grade={range ? 'C' : 'F'} minTemp={isMinTemp} maxTemp={isMaxTemp} wind = {isWindSpeed} clouds = {isClouds} img={isImg} buton ='Convert' funt={HandlerConvert}/> 
     </div>
   );
