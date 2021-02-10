@@ -1,5 +1,5 @@
 import React,{useEffect, useState } from 'react'
-import CardWeather from './CardWeather';
+import { CardWeather,CardInput } from './CardWeather';
 
 let range = true;
 
@@ -22,30 +22,20 @@ function getConvert(value){
 }
 
 const Data = () => {
-  let countryValue = '';
-  let cityValue = '';
-  let temp = '';
-  let minTemp = '';
-  let maxTemp = '';
-  let speed = '';
-  let clouds = '';
-  let lat = '';
-  let long = '';
-  let sky = '';
-  let icon = '';
-
+  let countryValue,cityValue,temp,minTemp,maxTemp,speed,clouds,lat,long,sky,icon;
+  
   const  getLocation = () => {
     if (navigator.geolocation){
      navigator.geolocation.getCurrentPosition(getPosition)
         
     }else{
-      alert('Not Supported');
+      alert('Not Supported')
     }
   }
   const getPosition =  async (position) =>{
     lat = position.coords.latitude;
     long = position.coords.longitude;
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=3d200fec9ce268d89c8a350e4e868dd3&units=metric`
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=e267d37a3cd129d493e9cdb21ab453cc&units=metric`
     const resp = await fetch(url);
     const info  = await resp.json();
       cityValue = info.name;
@@ -58,6 +48,7 @@ const Data = () => {
       sky = info.weather[0].description;
       icon = info.weather[0].icon;
       HandelrData();
+    console.log(info)
   }
 
   
@@ -75,7 +66,27 @@ useEffect(() => {
   const [isSky, setSky] = useState('***');
   const [isImg, setImg] = useState(null);
 
-    
+    const getData = async (e) => {
+      e.preventDefault();
+      const {country, city} = e.target.elements
+      countryValue = country.value;
+      cityValue = city.value;
+
+      const API_URL = `http://api.openweathermap.org/data/2.5/weather?q=${countryValue},${cityValue}&appid=e267d37a3cd129d493e9cdb21ab453cc&units=metric`
+      const response = await fetch(API_URL);
+      const info = await response.json();
+      cityValue = info.name;
+      countryValue = info.sys.country;
+      temp = info.main.temp;
+      minTemp = info.main.temp_min;
+      maxTemp = info.main.temp_max;
+      speed = info.wind.speed;
+      clouds = info.clouds.all;
+      sky = info.weather[0].description;
+      icon = info.weather[0].icon;
+      HandelrData();
+      range = true;
+    }
 
       const HandelrData = () => {
         setCountry(PrintData(countryValue, isCountry));
@@ -95,6 +106,7 @@ useEffect(() => {
 
   return (
     <div className = 'container'>
+        <CardInput country ='Country' city='City' getData = {getData} /> 
         <CardWeather sky={isSky} title='Weather' country = {isCountry} city= {isCity} temperature = {isTemp} grade={range ? 'C' : 'F'} minTemp={isMinTemp} maxTemp={isMaxTemp} wind = {isWindSpeed} clouds = {isClouds} img={isImg} buton ='Convert' funt={HandlerConvert}/> 
     </div>
   );

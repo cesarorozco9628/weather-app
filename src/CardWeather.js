@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CardWeather = (props) => {
+export const CardWeather = (props) => {
     return (
         <div>
             <div className = 'card'>
@@ -27,5 +27,19 @@ const CardWeather = (props) => {
     );
 }
 
+export const CardInput = (props) => {
+    return(
+        <div className='card'>
+            <h2 style={{marginBottom:50}}>Select Data</h2>
+           <form onSubmit={props.getData} className='forms'>
+                    <label>{props.country}</label>
+                    <input type="text" placeholder ='Ingresa el Pais' name='country' required='requer'></input>
+                    <label>{props.city}</label>
+                    <input type="text" placeholder='Ingresa la Ciudad' name='city'></input>
+                    <button>Get Data</button>
+            </form>
+        </div>
+    );
+}
 
-export default CardWeather;
+

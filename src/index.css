@@ -14,7 +14,7 @@
   background-size: cover;
   background-position: center;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -83,4 +83,31 @@ button {
 
 .col-4 p {
   font-size: 1.2em;
+}
+
+.forms{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.forms input {
+  margin-bottom: 60px;
+  height: 30px;
+  width: 100%;
+  border:none;
+  background-color: #21232700;
+  border-bottom: solid rgb(84, 86, 90);
+  outline:none;
+}
+
+label {
+  font-family: cursive;
+  font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.forms button{
+  margin-top: 100px;
 }
