@@ -1,5 +1,5 @@
 import React,{useEffect, useState } from 'react'
-import { CardWeather,CardInput } from './CardWeather';
+import CardWeather from './CardWeather';
 
 let range = true;
 
